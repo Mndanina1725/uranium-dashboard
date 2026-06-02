@@ -1,0 +1,207 @@
+Entity,Year,Electricity from nuclear (TWh)
+United States,2013,789.02
+United States,2014,797.07
+United States,2015,798.62
+United States,2016,805.50
+United States,2017,804.95
+United States,2018,807.08
+United States,2019,809.41
+United States,2020,790.20
+United States,2021,778.19
+United States,2022,771.64
+United States,2023,775.32
+United States,2024,780.00
+France,2013,403.72
+France,2014,415.87
+France,2015,418.96
+France,2016,384.37
+France,2017,379.14
+France,2018,394.99
+France,2019,379.47
+France,2020,335.47
+France,2021,360.74
+France,2022,279.44
+France,2023,320.43
+France,2024,340.00
+China,2013,111.78
+China,2014,132.98
+China,2015,170.84
+China,2016,213.23
+China,2017,248.13
+China,2018,277.12
+China,2019,330.12
+China,2020,366.18
+China,2021,407.48
+China,2022,417.78
+China,2023,433.89
+China,2024,460.00
+Russia,2013,172.17
+Russia,2014,180.02
+Russia,2015,195.00
+Russia,2016,196.36
+Russia,2017,202.87
+Russia,2018,207.87
+Russia,2019,208.78
+Russia,2020,215.75
+Russia,2021,222.44
+Russia,2022,223.37
+Russia,2023,225.00
+Russia,2024,228.00
+South Korea,2013,138.78
+South Korea,2014,156.09
+South Korea,2015,164.76
+South Korea,2016,161.99
+South Korea,2017,148.43
+South Korea,2018,127.08
+South Korea,2019,145.91
+South Korea,2020,160.18
+South Korea,2021,158.02
+South Korea,2022,176.05
+South Korea,2023,180.51
+South Korea,2024,185.00
+Canada,2013,99.33
+Canada,2014,101.97
+Canada,2015,101.97
+Canada,2016,99.16
+Canada,2017,97.38
+Canada,2018,97.42
+Canada,2019,97.33
+Canada,2020,92.18
+Canada,2021,92.59
+Canada,2022,89.90
+Canada,2023,92.00
+Canada,2024,94.00
+Ukraine,2013,83.07
+Ukraine,2014,87.16
+Ukraine,2015,87.57
+Ukraine,2016,80.81
+Ukraine,2017,85.15
+Ukraine,2018,83.95
+Ukraine,2019,79.58
+Ukraine,2020,76.37
+Ukraine,2021,86.26
+Ukraine,2022,55.11
+Ukraine,2023,65.00
+Ukraine,2024,68.00
+Germany,2013,97.27
+Germany,2014,91.78
+Germany,2015,86.84
+Germany,2016,84.61
+Germany,2017,76.35
+Germany,2018,71.93
+Germany,2019,75.09
+Germany,2020,64.39
+Germany,2021,65.44
+Germany,2022,34.57
+Germany,2023,6.10
+Japan,2013,9.31
+Japan,2014,0.00
+Japan,2015,9.40
+Japan,2016,17.32
+Japan,2017,31.68
+Japan,2018,49.26
+Japan,2019,65.68
+Japan,2020,43.45
+Japan,2021,61.24
+Japan,2022,68.21
+Japan,2023,80.12
+Japan,2024,90.00
+United Kingdom,2013,70.63
+United Kingdom,2014,63.07
+United Kingdom,2015,63.89
+United Kingdom,2016,65.15
+United Kingdom,2017,63.89
+United Kingdom,2018,59.11
+United Kingdom,2019,55.10
+United Kingdom,2020,45.50
+United Kingdom,2021,41.81
+United Kingdom,2022,38.37
+United Kingdom,2023,36.00
+United Kingdom,2024,34.00
+Sweden,2013,63.60
+Sweden,2014,62.26
+Sweden,2015,54.37
+Sweden,2016,60.58
+Sweden,2017,63.33
+Sweden,2018,65.90
+Sweden,2019,64.29
+Sweden,2020,47.37
+Sweden,2021,50.55
+Sweden,2022,49.82
+Sweden,2023,52.00
+Sweden,2024,53.00
+Spain,2013,54.91
+Spain,2014,55.81
+Spain,2015,55.81
+Spain,2016,56.11
+Spain,2017,55.77
+Spain,2018,53.50
+Spain,2019,55.96
+Spain,2020,57.32
+Spain,2021,57.44
+Spain,2022,56.02
+Spain,2023,53.00
+Spain,2024,52.00
+India,2013,32.87
+India,2014,35.26
+India,2015,34.64
+India,2016,37.15
+India,2017,35.08
+India,2018,35.30
+India,2019,46.47
+India,2020,43.66
+India,2021,43.01
+India,2022,47.64
+India,2023,50.00
+India,2024,55.00
+Belgium,2013,45.94
+Belgium,2014,32.12
+Belgium,2015,41.47
+Belgium,2016,41.40
+Belgium,2017,40.02
+Belgium,2018,26.95
+Belgium,2019,40.66
+Belgium,2020,41.22
+Belgium,2021,46.52
+Belgium,2022,24.93
+Belgium,2023,32.00
+Belgium,2024,34.00
+Czech Republic,2013,30.34
+Czech Republic,2014,28.60
+Czech Republic,2015,25.34
+Czech Republic,2016,22.73
+Czech Republic,2017,27.38
+Czech Republic,2018,28.27
+Czech Republic,2019,29.35
+Czech Republic,2020,29.35
+Czech Republic,2021,29.14
+Czech Republic,2022,30.32
+Czech Republic,2023,31.00
+Czech Republic,2024,31.50
+Finland,2013,22.71
+Finland,2014,22.36
+Finland,2015,22.32
+Finland,2016,22.28
+Finland,2017,22.17
+Finland,2018,22.16
+Finland,2019,22.82
+Finland,2020,22.65
+Finland,2021,22.65
+Finland,2022,22.93
+Finland,2023,37.00
+Finland,2024,40.00
+Brazil,2013,14.54
+Brazil,2014,15.48
+Brazil,2015,14.73
+Brazil,2016,15.87
+Brazil,2017,14.93
+Brazil,2018,15.88
+Brazil,2019,15.26
+Brazil,2020,14.83
+Brazil,2021,15.89
+Brazil,2022,13.49
+Brazil,2023,14.00
+Brazil,2024,14.00
+Australia,2013,0.00
+Kazakhstan,2013,0.00
+Namibia,2013,0.00

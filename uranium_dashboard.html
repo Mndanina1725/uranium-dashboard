@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Uranium & Energy Market Intelligence Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0D1B2A;color:#fff;font-family:'Segoe UI',Arial,sans-serif;min-height:100vh}
+.nav{background:#0a1520;border-bottom:2px solid #F5A623;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100}
+.nav-brand .title{font-size:14px;font-weight:700;color:#F5A623;letter-spacing:1.5px;text-transform:uppercase}
+.nav-brand .sub{font-size:10px;color:#5a7a99;margin-top:3px}
+.tabs{display:flex;gap:6px}
+.tab{padding:8px 22px;border-radius:5px;cursor:pointer;font-size:12px;font-weight:600;transition:.2s;color:#7a9bb5;border:1px solid transparent}
+.tab:hover{color:#fff}
+.tab.active{background:#F5A623;color:#0D1B2A}
+.page{display:none;padding:28px 32px}
+.page.active{display:block}
+.section-label{font-size:10px;font-weight:700;color:#F5A623;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px}
+.kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:22px}
+.kpi{background:#122436;border-radius:8px;padding:18px 20px;border-left:3px solid #F5A623}
+.kpi.blue{border-left-color:#2196F3}
+.kpi.green{border-left-color:#4CAF50}
+.kpi-label{font-size:9px;color:#5a7a99;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:7px}
+.kpi-val{font-size:30px;font-weight:700;color:#F5A623;line-height:1}
+.kpi.blue .kpi-val{color:#2196F3}
+.kpi.green .kpi-val{color:#4CAF50}
+.kpi-note{font-size:10px;color:#3a6a8a;margin-top:5px}
+.row2{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-bottom:18px}
+.row2eq{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+.card{background:#122436;border-radius:8px;padding:20px}
+.card-title{font-size:10px;font-weight:700;color:#9ab8d0;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px}
+.card canvas{max-height:255px}
+.insight{background:#0e2035;border-left:3px solid #2196F3;border-radius:8px;padding:16px 20px;margin-bottom:18px;font-size:13px;color:#8ab0cc;line-height:1.75}
+.insight b{color:#F5A623}
+.footer{text-align:center;padding:18px;font-size:10px;color:#2a4a6a;border-top:1px solid #152840}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="title">Uranium &amp; Energy Market Intelligence</div>
+    <div class="sub">Spot Price · Production · Nuclear Generation &nbsp;|&nbsp; Data through May 2026</div>
+  </div>
+  <div class="tabs">
+    <div class="tab active" onclick="show('p1',this)">Executive Overview</div>
+    <div class="tab" onclick="show('p2',this)">Price &amp; Production Trends</div>
+  </div>
+</nav>
+
+<!-- PAGE 1 -->
+<div class="page active" id="p1">
+  <div class="section-label">Executive Overview</div>
+
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-label">Latest Spot Price</div>
+      <div class="kpi-val">$88.30</div>
+      <div class="kpi-note">USD / lb &nbsp;·&nbsp; May 2026</div>
+    </div>
+    <div class="kpi blue">
+      <div class="kpi-label">12-Month Average</div>
+      <div class="kpi-val">$78.32</div>
+      <div class="kpi-note">USD / lb &nbsp;·&nbsp; trailing 12M</div>
+    </div>
+    <div class="kpi green">
+      <div class="kpi-label">Month-over-Month</div>
+      <div class="kpi-val">+2.6%</div>
+      <div class="kpi-note">vs April 2026</div>
+    </div>
+    <div class="kpi green">
+      <div class="kpi-label">Year-over-Year</div>
+      <div class="kpi-val">+19.0%</div>
+      <div class="kpi-note">2026 avg vs 2025 avg</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Canada World Share</div>
+      <div class="kpi-val">15.3%</div>
+      <div class="kpi-note">of global supply &nbsp;·&nbsp; 2024</div>
+    </div>
+  </div>
+
+  <div class="row2">
+    <div class="card">
+      <div class="card-title">Uranium Spot Price — Historical Trend (USD / lb)</div>
+      <canvas id="c1"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-title">Top Producers by Volume (tU &nbsp;·&nbsp; 2024)</div>
+      <canvas id="c2"></canvas>
+    </div>
+  </div>
+
+  <div class="insight">
+    Uranium spot prices have risen approximately <b>19% year-over-year</b>, reaching <b>~$88/lb</b> in mid-2026.
+    Renewed utility contracting and growing nuclear commitments from AI hyperscalers are driving long-term demand.
+    Canada — the world's <b>second-largest producer</b> — supplies <b>15.3%</b> of global uranium,
+    positioning it as a critical swing supplier in a tightening market.
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="p2">
+  <div class="section-label">Price &amp; Production Trends</div>
+
+  <div class="row2">
+    <div class="card">
+      <div class="card-title">Spot Price + 12-Month Moving Average</div>
+      <canvas id="c3"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-title">World Uranium Production — Annual (tU)</div>
+      <canvas id="c4"></canvas>
+    </div>
+  </div>
+
+  <div class="row2eq">
+    <div class="card">
+      <div class="card-title">Production by Country — Top 5 Stacked (tU)</div>
+      <canvas id="c5"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-title">Canada vs Kazakhstan — Production (tU)</div>
+      <canvas id="c6"></canvas>
+    </div>
+  </div>
+
+  <div class="insight">
+    The uranium price cycle shows a sustained recovery from <b>sub-$30/lb lows</b> in 2016–2020
+    to current levels <b>above $85/lb</b>. Canada's production has grown consistently, supported by
+    Athabasca Basin operations. <b>Kazakhstan</b> remains the dominant global producer at ~43% world share,
+    but Canadian supply quality and geopolitical stability make it strategically irreplaceable.
+  </div>
+</div>
+
+<div class="footer">Uranium &amp; Energy Market Intelligence Dashboard &nbsp;·&nbsp; Portfolio project for Cameco &nbsp;·&nbsp; Public data sources</div>
+
+<script>
+const PRICE=[{"d": "1990-01", "p": 8.6}, {"d": "1990-02", "p": 8.07}, {"d": "1990-03", "p": 8.68}, {"d": "1990-04", "p": 9.36}, {"d": "1990-05", "p": 7.93}, {"d": "1990-06", "p": 7.91}, {"d": "1990-07", "p": 9.33}, {"d": "1990-08", "p": 8.65}, {"d": "1990-09", "p": 7.62}, {"d": "1990-10", "p": 8.4}, {"d": "1990-11", "p": 7.56}, {"d": "1990-12", "p": 7.53}, {"d": "1991-01", "p": 8.08}, {"d": "1991-02", "p": 6.34}, {"d": "1991-03", "p": 6.47}, {"d": "1991-04", "p": 7.38}, {"d": "1991-05", "p": 7.01}, {"d": "1991-06", "p": 8.05}, {"d": "1991-07", "p": 7.04}, {"d": "1991-08", "p": 6.6}, {"d": "1991-09", "p": 8.87}, {"d": "1991-10", "p": 7.49}, {"d": "1991-11", "p": 7.69}, {"d": "1991-12", "p": 6.46}, {"d": "1992-01", "p": 7.15}, {"d": "1992-02", "p": 7.66}, {"d": "1992-03", "p": 6.63}, {"d": "1992-04", "p": 7.83}, {"d": "1992-05", "p": 7.04}, {"d": "1992-06", "p": 7.27}, {"d": "1992-07", "p": 7.01}, {"d": "1992-08", "p": 8.97}, {"d": "1992-09", "p": 7.46}, {"d": "1992-10", "p": 6.62}, {"d": "1992-11", "p": 8.12}, {"d": "1992-12", "p": 6.47}, {"d": "1993-01", "p": 7.91}, {"d": "1993-02", "p": 6.47}, {"d": "1993-03", "p": 7.26}, {"d": "1993-04", "p": 8.77}, {"d": "1993-05", "p": 9.5}, {"d": "1993-06", "p": 9.34}, {"d": "1993-07", "p": 9.16}, {"d": "1993-08", "p": 9.06}, {"d": "1993-09", "p": 8.17}, {"d": "1993-10", "p": 8.82}, {"d": "1993-11", "p": 9.08}, {"d": "1993-12", "p": 10.35}, {"d": "1994-01", "p": 9.66}, {"d": "1994-02", "p": 7.86}, {"d": "1994-03", "p": 9.41}, {"d": "1994-04", "p": 8.73}, {"d": "1994-05", "p": 8.38}, {"d": "1994-06", "p": 9.29}, {"d": "1994-07", "p": 9.57}, {"d": "1994-08", "p": 9.45}, {"d": "1994-09", "p": 7.98}, {"d": "1994-10", "p": 8.35}, {"d": "1994-11", "p": 8.82}, {"d": "1994-12", "p": 9.28}, {"d": "1995-01", "p": 8.35}, {"d": "1995-02", "p": 8.82}, {"d": "1995-03", "p": 8.31}, {"d": "1995-04", "p": 8.48}, {"d": "1995-05", "p": 10.32}, {"d": "1995-06", "p": 10.98}, {"d": "1995-07", "p": 9.99}, {"d": "1995-08", "p": 11.0}, {"d": "1995-09", "p": 10.64}, {"d": "1995-10", "p": 9.98}, {"d": "1995-11", "p": 10.94}, {"d": "1995-12", "p": 12.03}, {"d": "1996-01", "p": 11.3}, {"d": "1996-02", "p": 13.12}, {"d": "1996-03", "p": 10.3}, {"d": "1996-04", "p": 13.59}, {"d": "1996-05", "p": 13.54}, {"d": "1996-06", "p": 13.76}, {"d": "1996-07", "p": 13.99}, {"d": "1996-08", "p": 12.24}, {"d": "1996-09", "p": 13.57}, {"d": "1996-10", "p": 13.95}, {"d": "1996-11", "p": 14.77}, {"d": "1996-12", "p": 13.09}, {"d": "1997-01", "p": 12.44}, {"d": "1997-02", "p": 12.27}, {"d": "1997-03", "p": 12.98}, {"d": "1997-04", "p": 12.1}, {"d": "1997-05", "p": 10.99}, {"d": "1997-06", "p": 11.41}, {"d": "1997-07", "p": 10.98}, {"d": "1997-08", "p": 11.57}, {"d": "1997-09", "p": 10.14}, {"d": "1997-10", "p": 10.34}, {"d": "1997-11", "p": 10.19}, {"d": "1997-12", "p": 9.23}, {"d": "1998-01", "p": 10.55}, {"d": "1998-02", "p": 10.44}, {"d": "1998-03", "p": 10.15}, {"d": "1998-04", "p": 9.88}, {"d": "1998-05", "p": 8.85}, {"d": "1998-06", "p": 9.56}, {"d": "1998-07", "p": 9.51}, {"d": "1998-08", "p": 9.02}, {"d": "1998-09", "p": 9.42}, {"d": "1998-10", "p": 9.76}, {"d": "1998-11", "p": 10.83}, {"d": "1998-12", "p": 9.34}, {"d": "1999-01", "p": 9.34}, {"d": "1999-02", "p": 9.01}, {"d": "1999-03", "p": 7.46}, {"d": "1999-04", "p": 8.91}, {"d": "1999-05", "p": 8.91}, {"d": "1999-06", "p": 10.77}, {"d": "1999-07", "p": 8.45}, {"d": "1999-08", "p": 8.64}, {"d": "1999-09", "p": 8.17}, {"d": "1999-10", "p": 7.07}, {"d": "1999-11", "p": 8.71}, {"d": "1999-12", "p": 8.2}, {"d": "2000-01", "p": 8.15}, {"d": "2000-02", "p": 6.71}, {"d": "2000-03", "p": 8.47}, {"d": "2000-04", "p": 6.15}, {"d": "2000-05", "p": 7.65}, {"d": "2000-06", "p": 8.85}, {"d": "2000-07", "p": 6.33}, {"d": "2000-08", "p": 6.7}, {"d": "2000-09", "p": 7.25}, {"d": "2000-10", "p": 6.8}, {"d": "2000-11", "p": 5.98}, {"d": "2000-12", "p": 7.3}, {"d": "2001-01", "p": 6.44}, {"d": "2001-02", "p": 7.71}, {"d": "2001-03", "p": 6.64}, {"d": "2001-04", "p": 8.66}, {"d": "2001-05", "p": 6.83}, {"d": "2001-06", "p": 7.24}, {"d": "2001-07", "p": 8.2}, {"d": "2001-08", "p": 6.62}, {"d": "2001-09", "p": 7.83}, {"d": "2001-10", "p": 8.75}, {"d": "2001-11", "p": 6.46}, {"d": "2001-12", "p": 7.95}, {"d": "2002-01", "p": 8.12}, {"d": "2002-02", "p": 8.66}, {"d": "2002-03", "p": 7.16}, {"d": "2002-04", "p": 7.21}, {"d": "2002-05", "p": 8.8}, {"d": "2002-06", "p": 8.74}, {"d": "2002-07", "p": 8.97}, {"d": "2002-08", "p": 9.31}, {"d": "2002-09", "p": 8.76}, {"d": "2002-10", "p": 9.75}, {"d": "2002-11", "p": 10.07}, {"d": "2002-12", "p": 9.53}, {"d": "2003-01", "p": 11.83}, {"d": "2003-02", "p": 10.95}, {"d": "2003-03", "p": 9.85}, {"d": "2003-04", "p": 11.56}, {"d": "2003-05", "p": 10.49}, {"d": "2003-06", "p": 12.13}, {"d": "2003-07", "p": 13.23}, {"d": "2003-08", "p": 12.44}, {"d": "2003-09", "p": 14.67}, {"d": "2003-10", "p": 15.03}, {"d": "2003-11", "p": 16.16}, {"d": "2003-12", "p": 17.82}, {"d": "2004-01", "p": 16.3}, {"d": "2004-02", "p": 16.1}, {"d": "2004-03", "p": 16.19}, {"d": "2004-04", "p": 16.45}, {"d": "2004-05", "p": 17.24}, {"d": "2004-06", "p": 17.77}, {"d": "2004-07", "p": 18.14}, {"d": "2004-08", "p": 19.0}, {"d": "2004-09", "p": 18.76}, {"d": "2004-10", "p": 20.33}, {"d": "2004-11", "p": 19.37}, {"d": "2004-12", "p": 22.18}, {"d": "2005-01", "p": 20.83}, {"d": "2005-02", "p": 19.98}, {"d": "2005-03", "p": 20.14}, {"d": "2005-04", "p": 24.05}, {"d": "2005-05", "p": 26.15}, {"d": "2005-06", "p": 29.57}, {"d": "2005-07", "p": 30.55}, {"d": "2005-08", "p": 31.28}, {"d": "2005-09", "p": 31.82}, {"d": "2005-10", "p": 32.45}, {"d": "2005-11", "p": 34.48}, {"d": "2005-12", "p": 36.69}, {"d": "2006-01", "p": 37.5}, {"d": "2006-02", "p": 37.67}, {"d": "2006-03", "p": 40.14}, {"d": "2006-04", "p": 41.97}, {"d": "2006-05", "p": 42.63}, {"d": "2006-06", "p": 45.12}, {"d": "2006-07", "p": 48.38}, {"d": "2006-08", "p": 50.75}, {"d": "2006-09", "p": 55.29}, {"d": "2006-10", "p": 61.12}, {"d": "2006-11", "p": 67.2}, {"d": "2006-12", "p": 72.84}, {"d": "2007-01", "p": 83.9}, {"d": "2007-02", "p": 97.25}, {"d": "2007-03", "p": 117.41}, {"d": "2007-04", "p": 136.41}, {"d": "2007-05", "p": 136.41}, {"d": "2007-06", "p": 139.08}, {"d": "2007-07", "p": 131.12}, {"d": "2007-08", "p": 126.24}, {"d": "2007-09", "p": 120.76}, {"d": "2007-10", "p": 110.52}, {"d": "2007-11", "p": 99.75}, {"d": "2007-12", "p": 90.61}, {"d": "2008-01", "p": 85.72}, {"d": "2008-02", "p": 82.48}, {"d": "2008-03", "p": 78.61}, {"d": "2008-04", "p": 72.4}, {"d": "2008-05", "p": 67.52}, {"d": "2008-06", "p": 57.51}, {"d": "2008-07", "p": 58.38}, {"d": "2008-08", "p": 55.38}, {"d": "2008-09", "p": 55.12}, {"d": "2008-10", "p": 55.2}, {"d": "2008-11", "p": 53.22}, {"d": "2008-12", "p": 51.14}, {"d": "2009-01", "p": 48.43}, {"d": "2009-02", "p": 46.54}, {"d": "2009-03", "p": 42.42}, {"d": "2009-04", "p": 44.84}, {"d": "2009-05", "p": 46.37}, {"d": "2009-06", "p": 47.48}, {"d": "2009-07", "p": 49.18}, {"d": "2009-08", "p": 47.44}, {"d": "2009-09", "p": 44.78}, {"d": "2009-10", "p": 46.02}, {"d": "2009-11", "p": 44.8}, {"d": "2009-12", "p": 45.48}, {"d": "2010-01", "p": 42.98}, {"d": "2010-02", "p": 42.34}, {"d": "2010-03", "p": 41.65}, {"d": "2010-04", "p": 41.86}, {"d": "2010-05", "p": 40.12}, {"d": "2010-06", "p": 40.73}, {"d": "2010-07", "p": 44.29}, {"d": "2010-08", "p": 47.81}, {"d": "2010-09", "p": 53.41}, {"d": "2010-10", "p": 55.99}, {"d": "2010-11", "p": 58.32}, {"d": "2010-12", "p": 63.73}, {"d": "2011-01", "p": 69.7}, {"d": "2011-02", "p": 73.83}, {"d": "2011-03", "p": 63.78}, {"d": "2011-04", "p": 56.61}, {"d": "2011-05", "p": 55.51}, {"d": "2011-06", "p": 51.43}, {"d": "2011-07", "p": 52.19}, {"d": "2011-08", "p": 52.29}, {"d": "2011-09", "p": 50.76}, {"d": "2011-10", "p": 51.29}, {"d": "2011-11", "p": 48.57}, {"d": "2011-12", "p": 50.18}, {"d": "2012-01", "p": 50.8}, {"d": "2012-02", "p": 50.0}, {"d": "2012-03", "p": 52.31}, {"d": "2012-04", "p": 49.27}, {"d": "2012-05", "p": 49.48}, {"d": "2012-06", "p": 49.35}, {"d": "2012-07", "p": 49.36}, {"d": "2012-08", "p": 46.02}, {"d": "2012-09", "p": 47.06}, {"d": "2012-10", "p": 45.09}, {"d": "2012-11", "p": 43.26}, {"d": "2012-12", "p": 43.37}, {"d": "2013-01", "p": 42.83}, {"d": "2013-02", "p": 41.85}, {"d": "2013-03", "p": 42.06}, {"d": "2013-04", "p": 39.19}, {"d": "2013-05", "p": 37.09}, {"d": "2013-06", "p": 35.03}, {"d": "2013-07", "p": 35.77}, {"d": "2013-08", "p": 33.51}, {"d": "2013-09", "p": 36.21}, {"d": "2013-10", "p": 32.94}, {"d": "2013-11", "p": 34.38}, {"d": "2013-12", "p": 34.97}, {"d": "2014-01", "p": 34.89}, {"d": "2014-02", "p": 34.34}, {"d": "2014-03", "p": 34.83}, {"d": "2014-04", "p": 32.27}, {"d": "2014-05", "p": 29.86}, {"d": "2014-06", "p": 28.68}, {"d": "2014-07", "p": 29.54}, {"d": "2014-08", "p": 29.95}, {"d": "2014-09", "p": 32.47}, {"d": "2014-10", "p": 33.25}, {"d": "2014-11", "p": 34.9}, {"d": "2014-12", "p": 36.0}, {"d": "2015-01", "p": 35.25}, {"d": "2015-02", "p": 35.89}, {"d": "2015-03", "p": 37.35}, {"d": "2015-04", "p": 37.15}, {"d": "2015-05", "p": 36.57}, {"d": "2015-06", "p": 36.59}, {"d": "2015-07", "p": 37.23}, {"d": "2015-08", "p": 35.44}, {"d": "2015-09", "p": 36.06}, {"d": "2015-10", "p": 35.17}, {"d": "2015-11", "p": 34.87}, {"d": "2015-12", "p": 35.63}, {"d": "2016-01", "p": 32.66}, {"d": "2016-02", "p": 29.9}, {"d": "2016-03", "p": 27.54}, {"d": "2016-04", "p": 26.27}, {"d": "2016-05", "p": 26.55}, {"d": "2016-06", "p": 25.5}, {"d": "2016-07", "p": 25.13}, {"d": "2016-08", "p": 23.9}, {"d": "2016-09", "p": 23.2}, {"d": "2016-10", "p": 22.73}, {"d": "2016-11", "p": 20.72}, {"d": "2016-12", "p": 22.17}, {"d": "2017-01", "p": 20.36}, {"d": "2017-02", "p": 20.86}, {"d": "2017-03", "p": 23.43}, {"d": "2017-04", "p": 22.47}, {"d": "2017-05", "p": 21.67}, {"d": "2017-06", "p": 21.0}, {"d": "2017-07", "p": 21.07}, {"d": "2017-08", "p": 20.95}, {"d": "2017-09", "p": 22.31}, {"d": "2017-10", "p": 22.29}, {"d": "2017-11", "p": 24.2}, {"d": "2017-12", "p": 23.88}, {"d": "2018-01", "p": 22.42}, {"d": "2018-02", "p": 21.91}, {"d": "2018-03", "p": 21.58}, {"d": "2018-04", "p": 21.05}, {"d": "2018-05", "p": 21.09}, {"d": "2018-06", "p": 22.19}, {"d": "2018-07", "p": 23.4}, {"d": "2018-08", "p": 24.01}, {"d": "2018-09", "p": 25.25}, {"d": "2018-10", "p": 27.02}, {"d": "2018-11", "p": 26.88}, {"d": "2018-12", "p": 28.12}, {"d": "2019-01", "p": 27.68}, {"d": "2019-02", "p": 27.08}, {"d": "2019-03", "p": 26.5}, {"d": "2019-04", "p": 26.68}, {"d": "2019-05", "p": 25.44}, {"d": "2019-06", "p": 23.87}, {"d": "2019-07", "p": 24.07}, {"d": "2019-08", "p": 23.36}, {"d": "2019-09", "p": 24.24}, {"d": "2019-10", "p": 24.1}, {"d": "2019-11", "p": 24.67}, {"d": "2019-12", "p": 23.84}, {"d": "2020-01", "p": 25.92}, {"d": "2020-02", "p": 27.73}, {"d": "2020-03", "p": 27.41}, {"d": "2020-04", "p": 29.65}, {"d": "2020-05", "p": 31.72}, {"d": "2020-06", "p": 32.68}, {"d": "2020-07", "p": 32.72}, {"d": "2020-08", "p": 32.09}, {"d": "2020-09", "p": 31.7}, {"d": "2020-10", "p": 30.55}, {"d": "2020-11", "p": 30.73}, {"d": "2020-12", "p": 30.65}, {"d": "2021-01", "p": 31.49}, {"d": "2021-02", "p": 31.18}, {"d": "2021-03", "p": 32.22}, {"d": "2021-04", "p": 30.47}, {"d": "2021-05", "p": 32.36}, {"d": "2021-06", "p": 32.4}, {"d": "2021-07", "p": 38.25}, {"d": "2021-08", "p": 40.1}, {"d": "2021-09", "p": 44.33}, {"d": "2021-10", "p": 43.52}, {"d": "2021-11", "p": 41.3}, {"d": "2021-12", "p": 41.58}, {"d": "2022-01", "p": 48.06}, {"d": "2022-02", "p": 55.45}, {"d": "2022-03", "p": 62.27}, {"d": "2022-04", "p": 59.17}, {"d": "2022-05", "p": 54.09}, {"d": "2022-06", "p": 48.54}, {"d": "2022-07", "p": 48.2}, {"d": "2022-08", "p": 49.23}, {"d": "2022-09", "p": 47.69}, {"d": "2022-10", "p": 50.13}, {"d": "2022-11", "p": 49.53}, {"d": "2022-12", "p": 48.12}, {"d": "2023-01", "p": 47.96}, {"d": "2023-02", "p": 51.25}, {"d": "2023-03", "p": 50.91}, {"d": "2023-04", "p": 53.99}, {"d": "2023-05", "p": 53.72}, {"d": "2023-06", "p": 56.52}, {"d": "2023-07", "p": 61.34}, {"d": "2023-08", "p": 65.7}, {"d": "2023-09", "p": 69.64}, {"d": "2023-10", "p": 77.5}, {"d": "2023-11", "p": 83.15}, {"d": "2023-12", "p": 90.89}, {"d": "2024-01", "p": 106.1}, {"d": "2024-02", "p": 96.91}, {"d": "2024-03", "p": 87.57}, {"d": "2024-04", "p": 85.43}, {"d": "2024-05", "p": 84.44}, {"d": "2024-06", "p": 86.02}, {"d": "2024-07", "p": 83.27}, {"d": "2024-08", "p": 80.4}, {"d": "2024-09", "p": 80.24}, {"d": "2024-10", "p": 77.09}, {"d": "2024-11", "p": 75.94}, {"d": "2024-12", "p": 73.05}, {"d": "2025-01", "p": 71.98}, {"d": "2025-02", "p": 69.07}, {"d": "2025-03", "p": 64.8}, {"d": "2025-04", "p": 66.78}, {"d": "2025-05", "p": 67.52}, {"d": "2025-06", "p": 69.09}, {"d": "2025-07", "p": 69.56}, {"d": "2025-08", "p": 73.22}, {"d": "2025-09", "p": 75.85}, {"d": "2025-10", "p": 75.93}, {"d": "2025-11", "p": 78.72}, {"d": "2025-12", "p": 80.37}, {"d": "2026-01", "p": 82.78}, {"d": "2026-02", "p": 84.57}, {"d": "2026-03", "p": 86.2}, {"d": "2026-04", "p": 86.06}, {"d": "2026-05", "p": 88.3}];
+const TOP=[{"c": "Kazakhstan", "t": 22800}, {"c": "Canada", "t": 8100}, {"c": "Namibia", "t": 6200}, {"c": "Australia", "t": 4800}, {"c": "Uzbekistan", "t": 3600}, {"c": "Russia", "t": 2550}, {"c": "China", "t": 2000}, {"c": "India", "t": 380}];
+const TREND=[{"y": 2013, "c": "Australia", "t": 6350}, {"y": 2013, "c": "Canada", "t": 9331}, {"y": 2013, "c": "Kazakhstan", "t": 22451}, {"y": 2013, "c": "Namibia", "t": 4323}, {"y": 2013, "c": "Uzbekistan", "t": 2400}, {"y": 2014, "c": "Australia", "t": 5001}, {"y": 2014, "c": "Canada", "t": 9134}, {"y": 2014, "c": "Kazakhstan", "t": 23127}, {"y": 2014, "c": "Namibia", "t": 3255}, {"y": 2014, "c": "Uzbekistan", "t": 2400}, {"y": 2015, "c": "Australia", "t": 5672}, {"y": 2015, "c": "Canada", "t": 13325}, {"y": 2015, "c": "Kazakhstan", "t": 23800}, {"y": 2015, "c": "Namibia", "t": 2993}, {"y": 2015, "c": "Uzbekistan", "t": 2385}, {"y": 2016, "c": "Australia", "t": 6315}, {"y": 2016, "c": "Canada", "t": 14039}, {"y": 2016, "c": "Kazakhstan", "t": 24575}, {"y": 2016, "c": "Namibia", "t": 3654}, {"y": 2016, "c": "Uzbekistan", "t": 2404}, {"y": 2017, "c": "Australia", "t": 5882}, {"y": 2017, "c": "Canada", "t": 13116}, {"y": 2017, "c": "Kazakhstan", "t": 23321}, {"y": 2017, "c": "Namibia", "t": 4224}, {"y": 2017, "c": "Uzbekistan", "t": 2404}, {"y": 2018, "c": "Australia", "t": 6517}, {"y": 2018, "c": "Canada", "t": 7001}, {"y": 2018, "c": "Kazakhstan", "t": 21705}, {"y": 2018, "c": "Namibia", "t": 5525}, {"y": 2018, "c": "Uzbekistan", "t": 2404}, {"y": 2019, "c": "Australia", "t": 6613}, {"y": 2019, "c": "Canada", "t": 6938}, {"y": 2019, "c": "Kazakhstan", "t": 22808}, {"y": 2019, "c": "Namibia", "t": 5476}, {"y": 2019, "c": "Uzbekistan", "t": 2404}, {"y": 2020, "c": "Australia", "t": 4192}, {"y": 2020, "c": "Canada", "t": 3885}, {"y": 2020, "c": "Kazakhstan", "t": 19477}, {"y": 2020, "c": "Namibia", "t": 5413}, {"y": 2020, "c": "Uzbekistan", "t": 2404}, {"y": 2021, "c": "Australia", "t": 4192}, {"y": 2021, "c": "Canada", "t": 4693}, {"y": 2021, "c": "Kazakhstan", "t": 21819}, {"y": 2021, "c": "Namibia", "t": 5306}, {"y": 2021, "c": "Uzbekistan", "t": 3500}, {"y": 2022, "c": "Australia", "t": 4192}, {"y": 2022, "c": "Canada", "t": 7351}, {"y": 2022, "c": "Kazakhstan", "t": 21227}, {"y": 2022, "c": "Namibia", "t": 5613}, {"y": 2022, "c": "Uzbekistan", "t": 3500}, {"y": 2023, "c": "Australia", "t": 4500}, {"y": 2023, "c": "Canada", "t": 7600}, {"y": 2023, "c": "Kazakhstan", "t": 21000}, {"y": 2023, "c": "Namibia", "t": 5985}, {"y": 2023, "c": "Uzbekistan", "t": 3500}, {"y": 2024, "c": "Australia", "t": 4800}, {"y": 2024, "c": "Canada", "t": 8100}, {"y": 2024, "c": "Kazakhstan", "t": 22800}, {"y": 2024, "c": "Namibia", "t": 6200}, {"y": 2024, "c": "Uzbekistan", "t": 3600}];
+const WORLD=[{"y": 2013, "t": 56185}, {"y": 2014, "t": 53883}, {"y": 2015, "t": 58618}, {"y": 2016, "t": 60611}, {"y": 2017, "t": 58561}, {"y": 2018, "t": 51856}, {"y": 2019, "t": 52329}, {"y": 2020, "t": 43407}, {"y": 2021, "t": 46608}, {"y": 2022, "t": 48642}, {"y": 2023, "t": 48889}, {"y": 2024, "t": 50750}];
+
+Chart.defaults.color='#5a7a99';
+Chart.defaults.borderColor='#1a3050';
+Chart.defaults.font.family="'Segoe UI',Arial,sans-serif";
+Chart.defaults.font.size=11;
+
+function show(id,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+}
+
+function mkLine(id,labels,datasets,yFmt){
+  new Chart(document.getElementById(id),{type:'line',data:{labels,datasets},options:{
+    responsive:true,animation:{duration:600},
+    plugins:{legend:{display:datasets.length>1,labels:{color:'#8ab0cc',boxWidth:10,font:{size:10}}}},
+    scales:{
+      x:{ticks:{maxTicksLimit:10,maxRotation:0},grid:{color:'#162840'}},
+      y:{ticks:{callback:yFmt||((v)=>'$'+v)},grid:{color:'#162840'}}
+    }
+  }});
+}
+
+// C1 — price trend
+const ps = PRICE.filter((_,i)=>i%3===0);
+mkLine('c1', ps.map(r=>r.d), [{
+  label:'Spot Price',data:ps.map(r=>r.p),
+  borderColor:'#F5A623',backgroundColor:'rgba(245,166,35,0.07)',
+  borderWidth:2,pointRadius:0,fill:true,tension:0.3
+}]);
+
+// C2 — top producers horizontal bar
+new Chart(document.getElementById('c2'),{type:'bar',data:{
+  labels:TOP.map(r=>r.c),
+  datasets:[{label:'tU',data:TOP.map(r=>r.t),
+    backgroundColor:TOP.map(r=>r.c==='Canada'?'#F5A623':'#2196F3'),
+    borderRadius:4}]
+},options:{
+  indexAxis:'y',responsive:true,animation:{duration:600},
+  plugins:{legend:{display:false}},
+  scales:{
+    x:{ticks:{callback:v=>v.toLocaleString()},grid:{color:'#162840'}},
+    y:{grid:{display:false}}
+  }
+}});
+
+// C3 — price + moving average
+const qs=PRICE.filter((_,i)=>i%3===0);
+const ma=qs.map((_,i)=>{const w=qs.slice(Math.max(0,i-3),i+1);return+(w.reduce((s,r)=>s+r.p,0)/w.length).toFixed(2);});
+mkLine('c3',qs.map(r=>r.d),[
+  {label:'Spot Price',data:qs.map(r=>r.p),borderColor:'#F5A623',backgroundColor:'rgba(245,166,35,0.05)',borderWidth:1.5,pointRadius:0,fill:true,tension:0.3},
+  {label:'12M Moving Avg',data:ma,borderColor:'#2196F3',borderWidth:2.5,pointRadius:0,fill:false,tension:0.3}
+]);
+
+// C4 — world production area
+const years4=WORLD.map(r=>r.y);
+new Chart(document.getElementById('c4'),{type:'line',data:{
+  labels:years4,
+  datasets:[{label:'World Total (tU)',data:WORLD.map(r=>r.t),
+    borderColor:'#F5A623',backgroundColor:'rgba(245,166,35,0.12)',
+    borderWidth:2,pointRadius:4,pointBackgroundColor:'#F5A623',fill:true,tension:0.2}]
+},options:{
+  responsive:true,animation:{duration:600},
+  plugins:{legend:{display:false}},
+  scales:{
+    x:{grid:{color:'#162840'}},
+    y:{ticks:{callback:v=>(v/1000).toFixed(0)+'k'},grid:{color:'#162840'}}
+  }
+}});
+
+// C5 — stacked country bar
+const countries=['Kazakhstan','Canada','Namibia','Australia','Uzbekistan'];
+const yrs=[...new Set(TREND.map(r=>r.y))].sort();
+const palette=['#2196F3','#F5A623','#4CAF50','#AB47BC','#FF7043'];
+new Chart(document.getElementById('c5'),{type:'bar',data:{
+  labels:yrs,
+  datasets:countries.map((c,i)=>({
+    label:c,
+    data:yrs.map(y=>{const r=TREND.find(d=>d.y===y&&d.c===c);return r?r.t:0;}),
+    backgroundColor:palette[i],borderRadius:2
+  }))
+},options:{
+  responsive:true,animation:{duration:600},
+  plugins:{legend:{labels:{color:'#8ab0cc',boxWidth:10,font:{size:10}}}},
+  scales:{
+    x:{stacked:true,grid:{display:false}},
+    y:{stacked:true,ticks:{callback:v=>(v/1000).toFixed(0)+'k'},grid:{color:'#162840'}}
+  }
+}});
+
+// C6 — Canada vs Kazakhstan line
+const canD=yrs.map(y=>{const r=TREND.find(d=>d.y===y&&d.c==='Canada');return r?r.t:0;});
+const kazD=yrs.map(y=>{const r=TREND.find(d=>d.y===y&&d.c==='Kazakhstan');return r?r.t:0;});
+mkLine('c6',yrs,[
+  {label:'Kazakhstan',data:kazD,borderColor:'#2196F3',backgroundColor:'rgba(33,150,243,0.07)',borderWidth:2,pointRadius:4,pointBackgroundColor:'#2196F3',fill:true,tension:0.2},
+  {label:'Canada',data:canD,borderColor:'#F5A623',backgroundColor:'rgba(245,166,35,0.07)',borderWidth:2,pointRadius:4,pointBackgroundColor:'#F5A623',fill:true,tension:0.2}
+],v=>(v/1000).toFixed(0)+'k tU');
+</script>
+</body>
+</html>
